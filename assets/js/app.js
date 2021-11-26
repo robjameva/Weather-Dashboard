@@ -7,6 +7,7 @@ var submitBtnHandler = function(event) {
     event.preventDefault();
 
     var city = cityInputEl.value.trim();
+
     console.log(city);
 }
 
@@ -17,3 +18,4 @@ var submitBtnHandler = function(event) {
 
 
 searchBoxEl.addEventListener("click", submitBtnHandler)
+
