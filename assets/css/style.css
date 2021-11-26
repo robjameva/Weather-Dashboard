@@ -1,0 +1,27 @@
+
+
+nav {
+    background-image: linear-gradient(90deg, #64b5f6, #311b92 );
+}
+
+#search-container {
+    padding: 0 !important;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#search {
+    width: 100%;
+}
+
+.btn-container {
+    width: 100%;
+    margin-top: 20px;
+    padding: 0 !important; 
+}
+
+
+a {
+    width: 100%;
+    margin: 5px 0;
+}
