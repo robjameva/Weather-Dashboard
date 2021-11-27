@@ -1,3 +1,7 @@
+:root{
+    --uv-index: rgb(155, 216, 155);
+}
+
 .input-field .prefix.active {
     color: #64b5f6;
 }
@@ -67,4 +71,18 @@ a {
 
 .date {
     font-weight: bold;
+}
+
+.icon {
+    height: 75px;
+}
+
+.heading {
+    margin-top: 0;
+}
+
+#uv-background {
+    background-color: var(--uv-index);
+    border-radius: 10px;
+    padding: 1px 8px;
 }

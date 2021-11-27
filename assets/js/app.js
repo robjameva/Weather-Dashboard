@@ -9,6 +9,7 @@ var tempEl = document.querySelector("#main-temp");
 var windEl = document.querySelector("#main-wind");
 var humidEl = document.querySelector("#main-humid");
 var uvEl = document.querySelector("#main-uv");
+var uvWrapperEl = document.querySelector("#uv-background")
 var lat;
 var lon;
 
@@ -51,6 +52,7 @@ var getWeather = function(cityName) {
             if (response.ok) {
                 response.json().then(function(data) {
                     populateToday(data);
+                    setHeadingIcon(data)
                     setUVIndex();
                     console.log(data)
                     populateFiveDay(data);
@@ -72,6 +74,12 @@ var populateToday = function(data) {
     humidEl.textContent = data.list[2].main.humidity;
     lat = data.city.coord.lat;
     lon = data.city.coord.lon;
+}
+
+var setHeadingIcon = function(data) {
+    var iconEl = document.querySelector(".heading-icon");
+    var iconUrl = "http://openweathermap.org/img/wn/" + data.list[2].weather[0].icon + "@2x.png"
+    iconEl.setAttribute("src", iconUrl);
 }
 
 var populateFiveDay = function(data) {
@@ -97,6 +105,18 @@ var setUVIndex = function() {
             if (response.ok) {
                 response.json().then(function(data) {
                     uvEl.textContent = data.current.uvi;
+                    if (data.current.uvi >= 8) {
+                        uvWrapperEl.style.setProperty('--uv-index', 'rgb(219, 13, 13)')
+                    }
+                    else if (data.current.uvi >= 6) {
+                        uvWrapperEl.style.setProperty('--uv-index', 'rgb(245, 170, 31)')
+                    }
+                    else if (data.current.uvi >= 3) {
+                        uvWrapperEl.style.setProperty('--uv-index', 'rgb(230, 230, 36)')
+                    }
+                    else {
+                        uvWrapperEl.style.setProperty('--uv-index', 'rgb(155, 216, 155)')
+                    }
                 });
             }
 
