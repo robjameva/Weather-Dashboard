@@ -9,7 +9,8 @@ var tempEl = document.querySelector("#main-temp");
 var windEl = document.querySelector("#main-wind");
 var humidEl = document.querySelector("#main-humid");
 var uvEl = document.querySelector("#main-uv");
-
+var lat;
+var lon;
 
 
 var today = moment().format("MMM Do");
@@ -52,8 +53,11 @@ var getWeather = function(cityName) {
                     tempEl.textContent = data.list[2].main.temp;
                     windEl.textContent = data.list[2].wind.speed;
                     humidEl.textContent = data.list[2].main.humidity;
+                    lat = data.city.coord.lat;
+                    lon = data.city.coord.lon;
+                    setUVIndex();
                     console.log(data)
-                    console.log(data.list[0].main.temp)
+
                 });
                 generateRecentSearchBtn(cityName);
                 localStorage.setItem("cities", JSON.stringify(recentSearch))
@@ -64,6 +68,19 @@ var getWeather = function(cityName) {
             else {
                 alert("City Not Found")
             }
+        })
+}
+
+var setUVIndex = function() {
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${myAPIKey}`
+    fetch(apiUrl)
+        .then(function(response) {
+            if (response.ok) {
+                response.json().then(function(data) {
+                    uvEl.textContent = data.current.uvi;
+                });
+            }
+
         })
 }
 
