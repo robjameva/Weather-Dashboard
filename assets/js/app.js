@@ -17,10 +17,10 @@ var today = moment().format("MMM Do");
 var myAPIKey = 'b58b9f0f57c16a04f0ddb33fe7147ac6'
 var recentSearch = [];
 var currentCity = "";
+var eachDay = fiveDayEl.children;
 
 var setDates = function() {
     todayEl.closest("span").textContent = today;
-    var eachDay = fiveDayEl.children;
 
     for (var i = 0; i < eachDay.length; i++) {
         var child = eachDay[i];
@@ -57,6 +57,11 @@ var getWeather = function(cityName) {
                     lon = data.city.coord.lon;
                     setUVIndex();
                     console.log(data)
+                    // Editing each item in the 5 day forcast needs work
+                    for (var i = 0; i < eachDay.length; i++) {
+                        var child = eachDay[i];
+                        child.children[2].textContent = data.list[2].main.temp;
+                    }
 
                 });
                 generateRecentSearchBtn(cityName);
