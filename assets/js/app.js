@@ -50,31 +50,45 @@ var getWeather = function(cityName) {
         .then(function(response) {
             if (response.ok) {
                 response.json().then(function(data) {
-                    tempEl.textContent = data.list[2].main.temp;
-                    windEl.textContent = data.list[2].wind.speed;
-                    humidEl.textContent = data.list[2].main.humidity;
-                    lat = data.city.coord.lat;
-                    lon = data.city.coord.lon;
+                    populateToday(data);
                     setUVIndex();
                     console.log(data)
-                    // Editing each item in the 5 day forcast needs work
-                    for (var i = 0; i < eachDay.length; i++) {
-                        var child = eachDay[i];
-                        child.children[2].textContent = data.list[2].main.temp;
-                    }
-
+                    populateFiveDay(data);
+                    generateRecentSearchBtn(cityName);
+                    localStorage.setItem("cities", JSON.stringify(recentSearch))
+                    currentCity = cityName;
+                    displayCity();
                 });
-                generateRecentSearchBtn(cityName);
-                localStorage.setItem("cities", JSON.stringify(recentSearch))
-                currentCity = cityName;
-                displayCity();
-                loadRecentSearch();
             }
             else {
                 alert("City Not Found")
             }
         })
 }
+
+var populateToday = function(data) {
+    tempEl.textContent = data.list[2].main.temp;
+    windEl.textContent = data.list[2].wind.speed;
+    humidEl.textContent = data.list[2].main.humidity;
+    lat = data.city.coord.lat;
+    lon = data.city.coord.lon;
+}
+
+var populateFiveDay = function(data) {
+    var nextDay = 0;
+    for (var i = 0; i < eachDay.length; i++) {
+        var child = eachDay[i];
+        var imgUrl = "http://openweathermap.org/img/wn/" + data.list[nextDay].weather[0].icon + "@2x.png"
+        child.children[1].setAttribute("src", imgUrl)
+        child.children[2].textContent = "Temp: " + data.list[nextDay].main.temp + " °F";
+        child.children[3].textContent = "Wind: " + data.list[nextDay].wind.speed + " MPH";
+        child.children[4].textContent = "Humidity: " + data.list[nextDay].main.humidity + " %";
+        nextDay += 5;
+        console.log(nextDay)
+    }
+}
+
+
 
 var setUVIndex = function() {
     let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${myAPIKey}`

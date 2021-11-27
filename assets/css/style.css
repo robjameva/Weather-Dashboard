@@ -65,6 +65,6 @@ a {
     justify-content: space-around;
 }
 
-/* .forcast {
-    text-align: center;
-} */
+.date {
+    font-weight: bold;
+}
