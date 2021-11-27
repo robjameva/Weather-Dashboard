@@ -44,6 +44,7 @@ var generateRecentSearchBtn = function(city) {
     if (!recentSearch.includes(city) && recentSearch.length < 10) {
         var cityBtnEl = document.createElement("a");
         cityBtnEl.classList = "waves-effect waves-light btn-large search-btn";
+        cityBtnEl.setAttribute("data-city", city)
         cityBtnEl.textContent = city;
 
         btnContainerEl.appendChild(cityBtnEl);
@@ -57,6 +58,14 @@ var generateRecentSearchBtn = function(city) {
         loadRecentSearch();
     }
 }
+
+var getWeatherFromBtn = function(event) {
+    var city = event.target.getAttribute("data-city");
+    getWeather(city);
+}
+
+
+
 
 var clearBtnHandler = function() {
     var loadedSearches = JSON.parse(localStorage.getItem("cities"))
@@ -85,4 +94,4 @@ if (localStorage.getItem("cities")) {
 
 searchBoxEl.addEventListener("click", submitBtnHandler)
 clearBtnEl.addEventListener("click", clearBtnHandler)
-
+btnContainerEl.addEventListener("click", getWeatherFromBtn)

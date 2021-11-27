@@ -48,3 +48,21 @@ a {
 .btn, .btn-large {
     background-image: linear-gradient(90deg, #64b5f6, #311b92 );
 }
+
+.selected-city {
+    border: #64b5f6 3px solid;
+    margin-top: 55px;
+}
+
+.five-day-title {
+    margin-top: 20px !important;
+    font-size: 25px;
+}
+
+/* .five-day {
+    border: #64b5f6 3px solid;
+} */
+
+/* .forcast {
+    text-align: center;
+} */
