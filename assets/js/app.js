@@ -4,12 +4,14 @@ var cityInputEl = document.querySelector(".validate")
 var btnContainerEl = document.querySelector(".btn-container")
 var todayEl = document.querySelector("#today")
 var fiveDayEl = document.querySelector(".five-day")
+var cityDisplayEl = document.querySelector("#jumbotron");
 
 var today = moment().format("MMM Do");
 var myAPIKey = 'b58b9f0f57c16a04f0ddb33fe7147ac6'
 var recentSearch = [];
+var currentCity = "New Jersey";
 
-var setTodayDate = function() {
+var setDates = function() {
     todayEl.closest("span").textContent = today;
     var eachDay = fiveDayEl.children;
 
@@ -45,6 +47,8 @@ var getWeather = function(cityName) {
                 });
                 generateRecentSearchBtn(cityName);
                 localStorage.setItem("cities", JSON.stringify(recentSearch))
+                currentCity = cityName;
+                displayCity();
                 loadRecentSearch();
             }
             else {
@@ -97,6 +101,30 @@ var loadRecentSearch = function() {
     }
 }
 
+var displayCity = function() {
+    var words = currentCity.split(' ');
+    var result = "";
+    for (var i = 0; i < words.length; i++) {
+        var word = words[i]
+        var firstLetter = word[0]
+        var otherLetters = word.slice(1);
+        var upper = firstLetter.toUpperCase();
+        result += upper + otherLetters + " ";
+    }
+    currentCity = result;
+    cityDisplayEl.textContent = currentCity;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -104,9 +132,9 @@ if (localStorage.getItem("cities")) {
     loadRecentSearch();
 }
 
-
 searchBoxEl.addEventListener("click", submitBtnHandler)
 clearBtnEl.addEventListener("click", clearBtnHandler)
 btnContainerEl.addEventListener("click", getWeatherFromBtn)
 
-setTodayDate();
+setDates();
+displayCity();
