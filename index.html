@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Weather Dashboard</title>
 </head>
@@ -36,7 +37,7 @@
             </div>
   
             <div class="col s12 m7 l8 selected-city"> 
-                <h2>New Jersey</h2>
+                <h2 class="jumbotron">New Jersey: <span id="today"></span></h2>
                 <p>Temp:</p>
                 <p>Wind:</p>
                 <p>Humidity:</p>
@@ -46,43 +47,43 @@
             <div class="col s12 m7 l8 five-day-title">
                 <span>5 Day Forcast</span>
             </div>
-            <div class="col s12 m7 l8 five-day"> 
-                <div class="row">      
+            <div class="col s12 m7 l8"> 
+                <div class="row five-day">      
 
                     <div class="card col s2 m2 l2 xl2 forcast">
-                        <p>11/26/2021</p>
-                        <p>img</p>
-                        <p>Temp</p>
-                        <p>Wind</p>
-                        <p>Humidity</p>
+                        <p class="date">11/26/2021</p>
+                        <p class="img">img</p>
+                        <p class="temp">Temp</p>
+                        <p class="wind">Wind</p>
+                        <p class="humid">Humidity</p>
                     </div>
                     <div class="card col s2 m2 l2 xl2 forcast">
-                        <p>11/26/2021</p>
-                        <p>img</p>
-                        <p>Temp</p>
-                        <p>Wind</p>
-                        <p>Humidity</p>
+                        <p class="date">11/26/2021</p>
+                        <p class="img">img</p>
+                        <p class="temp">Temp</p>
+                        <p class="wind">Wind</p>
+                        <p class="humid">Humidity</p>
                     </div>
                     <div class="card col s2 m2 l2 xl2 forcast">
-                        <p>11/26/2021</p>
-                        <p>img</p>
-                        <p>Temp</p>
-                        <p>Wind</p>
-                        <p>Humidity</p>
+                        <p class="date">11/26/2021</p>
+                        <p class="img">img</p>
+                        <p class="temp">Temp</p>
+                        <p class="wind">Wind</p>
+                        <p class="humid">Humidity</p>
                     </div>
                     <div class="card col s2 m2 l2 xl2 forcast">
-                        <p>11/26/2021</p>
-                        <p>img</p>
-                        <p>Temp</p>
-                        <p>Wind</p>
-                        <p>Humidity</p>
+                        <p class="date">11/26/2021</p>
+                        <p class="img">img</p>
+                        <p class="temp">Temp</p>
+                        <p class="wind">Wind</p>
+                        <p class="humid">Humidity</p>
                     </div>
                     <div class="card col s2 m2 l2 xl2 forcast">
-                        <p>11/26/2021</p>
-                        <p>img</p>
-                        <p>Temp</p>
-                        <p>Wind</p>
-                        <p>Humidity</p>
+                        <p class="date">11/26/2021</p>
+                        <p class="img">img</p>
+                        <p class="temp">Temp</p>
+                        <p class="wind">Wind</p>
+                        <p class="humid">Humidity</p>
                     </div>
                     
             </div>
@@ -91,7 +92,7 @@
       </div>
     </main>
     
-    <script src="./assets/js/app.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
+<script src="./assets/js/app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </html>

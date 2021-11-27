@@ -34,6 +34,7 @@ nav {
 
 .btn-container {
     width: 100%;
+    height: 100%;
     margin-top: 20px;
     padding: 0 !important; 
 }
@@ -59,9 +60,10 @@ a {
     font-size: 25px;
 }
 
-/* .five-day {
-    border: #64b5f6 3px solid;
-} */
+.five-day {
+    display: flex;
+    justify-content: space-around;
+}
 
 /* .forcast {
     text-align: center;
