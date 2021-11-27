@@ -5,11 +5,17 @@ var btnContainerEl = document.querySelector(".btn-container")
 var todayEl = document.querySelector("#today")
 var fiveDayEl = document.querySelector(".five-day")
 var cityDisplayEl = document.querySelector("#jumbotron");
+var tempEl = document.querySelector("#main-temp");
+var windEl = document.querySelector("#main-wind");
+var humidEl = document.querySelector("#main-humid");
+var uvEl = document.querySelector("#main-uv");
+
+
 
 var today = moment().format("MMM Do");
 var myAPIKey = 'b58b9f0f57c16a04f0ddb33fe7147ac6'
 var recentSearch = [];
-var currentCity = "New Jersey";
+var currentCity = "";
 
 var setDates = function() {
     todayEl.closest("span").textContent = today;
@@ -38,12 +44,16 @@ var submitBtnHandler = function(event) {
 
 
 var getWeather = function(cityName) {
-    let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${myAPIKey}`
+    let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${myAPIKey}&units=imperial`
     fetch(apiUrl)
         .then(function(response) {
             if (response.ok) {
                 response.json().then(function(data) {
+                    tempEl.textContent = data.list[2].main.temp;
+                    windEl.textContent = data.list[2].wind.speed;
+                    humidEl.textContent = data.list[2].main.humidity;
                     console.log(data)
+                    console.log(data.list[0].main.temp)
                 });
                 generateRecentSearchBtn(cityName);
                 localStorage.setItem("cities", JSON.stringify(recentSearch))
@@ -111,7 +121,7 @@ var displayCity = function() {
         var upper = firstLetter.toUpperCase();
         result += upper + otherLetters + " ";
     }
-    currentCity = result;
+    currentCity = result.trim();
     cityDisplayEl.textContent = currentCity;
 }
 
@@ -136,5 +146,5 @@ searchBoxEl.addEventListener("click", submitBtnHandler)
 clearBtnEl.addEventListener("click", clearBtnHandler)
 btnContainerEl.addEventListener("click", getWeatherFromBtn)
 
+getWeather("New Jersey");
 setDates();
-displayCity();
