@@ -1,4 +1,5 @@
 var searchBoxEl = document.querySelector("#search")
+var clearBtnEl = document.querySelector("#clear")
 var cityInputEl = document.querySelector(".validate")
 var btnContainerEl = document.querySelector(".btn-container")
 
@@ -57,7 +58,15 @@ var generateRecentSearchBtn = function(city) {
     }
 }
 
-
+var clearBtnHandler = function() {
+    var loadedSearches = JSON.parse(localStorage.getItem("cities"))
+    for (let i = 0; i < loadedSearches.length; i++) {
+        var btnEl = document.querySelector(".search-btn");
+        btnContainerEl.removeChild(btnEl);
+    }
+    recentSearch = [];
+    localStorage.setItem("cities", "");
+}
 
 
 var loadRecentSearch = function() {
@@ -75,4 +84,5 @@ if (localStorage.getItem("cities")) {
 
 
 searchBoxEl.addEventListener("click", submitBtnHandler)
+clearBtnEl.addEventListener("click", clearBtnHandler)
 

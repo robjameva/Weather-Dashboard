@@ -26,9 +26,11 @@ nav {
     margin-bottom: 10px;
 }
 
-#search {
+#search, #clear {
     width: 100%;
+    margin-top: 5px;
 }
+
 
 .btn-container {
     width: 100%;
