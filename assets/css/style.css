@@ -1,7 +1,9 @@
+/* Global Variables */
 :root{
     --uv-index: rgb(155, 216, 155);
 }
 
+/* Override CSS framework defaults */
 .input-field .prefix.active {
     color: #64b5f6;
 }
@@ -48,7 +50,6 @@ a {
     width: 100%;
     margin: 5px 0;
 }
-
 
 .btn, .btn-large {
     background-image: linear-gradient(90deg, #64b5f6, #311b92 );

@@ -12,7 +12,7 @@
 </head>
 <body>
     <main>
-        <!-- Navbar goes here -->
+        <!-- Header/Navbar goes here setup for future implementaion of nav btns-->
         <nav>
             <div class="nav-wrapper">
               <a href="#" class="brand-logo center">Weather Dashboard</a>
@@ -21,6 +21,7 @@
       
         <!-- Page Layout here -->
         <div class="row">
+            <!-- City Search and Clear sections -->
             <div class="col s12 m4 l3"> 
                 <div class="col" id="search-container">
                     <form class="input-field">
@@ -32,10 +33,12 @@
                     </form>
                 </div>
 
+                <!-- Recent Search Section -->
                 <div class="btn-container col">
                 </div>
             </div>
   
+            <!-- Main Display -->
             <div class="col s12 m7 l8 selected-city"> 
                 <h2 class="heading"><span id="jumbotron"></span>: <span id="today"></span> <img src="" class="heading-icon"></h2>
                 <p>Temp: <span id="main-temp"></span> °F</p>
@@ -44,12 +47,12 @@
                 <span id="uv-background">UV Index: <span id="main-uv"></span></span>
             </div>
             
+            <!-- Five day forecast section -->
             <div class="col s12 m7 l8 five-day-title">
                 <span>5 Day Forecast</span>
             </div>
             <div class="col s12 m7 l8"> 
                 <div class="row five-day">      
-
                     <div class="card col s2 m2 l2 xl2 forecast">
                         <p class="date">11/26/2021</p>
                         <img src="" alt="">
@@ -85,13 +88,10 @@
                         <p class="wind">Wind</p>
                         <p class="humid">Humidity</p>
                     </div>
-                    
             </div>
          </div>
-  
       </div>
     </main>
-    
 </body>
 <script src="./assets/js/app.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

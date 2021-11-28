@@ -1,3 +1,4 @@
+// Element selectors
 var searchBoxEl = document.querySelector("#search")
 var clearBtnEl = document.querySelector("#clear")
 var cityInputEl = document.querySelector(".validate")
@@ -13,6 +14,7 @@ var uvWrapperEl = document.querySelector("#uv-background")
 var lat;
 var lon;
 
+// Global Variables
 var defaultLocations = ["New Jersey", "California", "Whippany"];
 var today = moment().format("MMM Do");
 var myAPIKey = 'b58b9f0f57c16a04f0ddb33fe7147ac6'
@@ -20,6 +22,7 @@ var recentSearch = [];
 var currentCity = "";
 var eachDay = fiveDayEl.children;
 
+// Set today and next five dates
 var setDates = function() {
     todayEl.closest("span").textContent = today;
 
@@ -29,20 +32,7 @@ var setDates = function() {
     }
 }
 
-var submitBtnHandler = function(event) {
-    event.preventDefault();
-
-    var city = cityInputEl.value.trim();
-    if (city) {
-        getWeather(city);
-        cityInputEl.value = "";
-    }
-    else {
-        alert("Please Enter a City Name");
-    }
-
-}
-
+// API call and main logic handler
 var getWeather = function(cityName) {
     let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${myAPIKey}&units=imperial`
     fetch(apiUrl)
@@ -62,6 +52,35 @@ var getWeather = function(cityName) {
                 alert("City Not Found");
             }
         })
+}
+
+var setUVIndex = function() {
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${myAPIKey}`
+    fetch(apiUrl)
+        .then(function(response) {
+            if (response.ok) {
+                response.json().then(function(data) {
+                    uvEl.textContent = data.current.uvi;
+                    setUVBackground(data);
+                });
+            }
+
+        })
+}
+
+var setUVBackground = function(data) {
+    if (data.current.uvi >= 8) {
+        uvWrapperEl.style.setProperty('--uv-index', 'rgb(219, 13, 13)');
+    }
+    else if (data.current.uvi >= 6) {
+        uvWrapperEl.style.setProperty('--uv-index', 'rgb(245, 170, 31)');
+    }
+    else if (data.current.uvi >= 3) {
+        uvWrapperEl.style.setProperty('--uv-index', 'rgb(230, 230, 36)');
+    }
+    else {
+        uvWrapperEl.style.setProperty('--uv-index', 'rgb(155, 216, 155)');
+    }
 }
 
 var populateToday = function(data) {
@@ -92,31 +111,6 @@ var populateFiveDay = function(data) {
     }
 }
 
-var setUVIndex = function() {
-    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${myAPIKey}`
-    fetch(apiUrl)
-        .then(function(response) {
-            if (response.ok) {
-                response.json().then(function(data) {
-                    uvEl.textContent = data.current.uvi;
-                    if (data.current.uvi >= 8) {
-                        uvWrapperEl.style.setProperty('--uv-index', 'rgb(219, 13, 13)');
-                    }
-                    else if (data.current.uvi >= 6) {
-                        uvWrapperEl.style.setProperty('--uv-index', 'rgb(245, 170, 31)');
-                    }
-                    else if (data.current.uvi >= 3) {
-                        uvWrapperEl.style.setProperty('--uv-index', 'rgb(230, 230, 36)');
-                    }
-                    else {
-                        uvWrapperEl.style.setProperty('--uv-index', 'rgb(155, 216, 155)');
-                    }
-                });
-            }
-
-        })
-}
-
 var generateRecentSearchBtn = function(city) {
     if (!recentSearch.includes(city)) {
         var cityBtnEl = document.createElement("a");
@@ -129,9 +123,49 @@ var generateRecentSearchBtn = function(city) {
     }
 }
 
+// Gets value from btn to and sends to getWeather function to use recent searches
 var getWeatherFromBtn = function(event) {
     var city = event.target.getAttribute("data-city");
     getWeather(city);
+}
+
+var loadRecentSearch = function() {
+    var loadedSearches = JSON.parse(localStorage.getItem("cities"));
+
+    for (let i = 0; i < loadedSearches.length; i++) {
+        generateRecentSearchBtn(loadedSearches[i]);
+    }
+}
+
+// Defaults all cities in the default array and maintains them as recent search btns
+var setDefaults = function() {
+    for (var i = 0; i < defaultLocations.length; i++) {
+        getWeather(defaultLocations[i]);
+    }
+}
+
+
+// Only try to load recent searches if there are itmes saved in local storage
+if (localStorage.getItem("cities")) {
+    loadRecentSearch();
+}
+
+// Default function calls
+setDefaults();
+setDates();
+
+// Btn handlers
+var submitBtnHandler = function(event) {
+    event.preventDefault();
+
+    var city = cityInputEl.value.trim();
+    if (city) {
+        getWeather(city);
+        cityInputEl.value = "";
+    }
+    else {
+        alert("Please Enter a City Name");
+    }
 }
 
 var clearBtnHandler = function() {
@@ -144,28 +178,7 @@ var clearBtnHandler = function() {
     localStorage.setItem("cities", "");
 }
 
-var loadRecentSearch = function() {
-    var loadedSearches = JSON.parse(localStorage.getItem("cities"));
-
-    for (let i = 0; i < loadedSearches.length; i++) {
-        generateRecentSearchBtn(loadedSearches[i]);
-    }
-}
-
-var setDefaults = function() {
-    for (var i = 0; i < defaultLocations.length; i++) {
-        getWeather(defaultLocations[i]);
-    }
-    console.log(recentSearch)
-}
-
-if (localStorage.getItem("cities")) {
-    loadRecentSearch();
-}
-
-setDefaults();
-setDates();
-
+// Event Listeners
 searchBoxEl.addEventListener("click", submitBtnHandler);
 clearBtnEl.addEventListener("click", clearBtnHandler);
 btnContainerEl.addEventListener("click", getWeatherFromBtn);
