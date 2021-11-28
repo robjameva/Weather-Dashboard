@@ -181,7 +181,11 @@ var displayCity = function() {
     cityDisplayEl.textContent = currentCity;
 }
 
-
+var setDefaults = function() {
+    getWeather("New Jersey");
+    getWeather("California");
+    getWeather("Whippany");
+}
 
 
 
@@ -202,5 +206,5 @@ searchBoxEl.addEventListener("click", submitBtnHandler)
 clearBtnEl.addEventListener("click", clearBtnHandler)
 btnContainerEl.addEventListener("click", getWeatherFromBtn)
 
-getWeather("New Jersey");
+setDefaults();
 setDates();
